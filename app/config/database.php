@@ -54,10 +54,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'mysql.daimi.au.dk',
-			'database'  => 'thai6448',
-			'username'  => 'thai6448',
-			'password'  => 'LUAXYHK7',
+			'host'      => 'localhost',
+			'database'  => 'thaishop',
+			'username'  => 'root',
+			'password'  => '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
