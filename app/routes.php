@@ -11,6 +11,8 @@
 |
 */
 
+App::bind('ProductRepositoryInterface', 'ProductRepository');
+
 Route::get('/', function()
 {
 	return View::make('hello');
@@ -23,4 +25,3 @@ Route::get('products', ['as' => 'products', 'uses' => 'ProductsController@index'
 //    return new ProductRepository();
 //});
 
-App::bind('ProductRepositoryInterface', 'ProductRepository');

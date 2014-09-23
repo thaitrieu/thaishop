@@ -6,10 +6,12 @@
  * Time: 13:55
  */
 
+
+
 class ProductRepository implements ProductRepositoryInterface {
 
     public function getAll()
     {
-        return Product::all()->toArray();
+        return Product::all();
     }
 } 

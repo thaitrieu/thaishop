@@ -6,6 +6,8 @@
  * Time: 13:56
  */
 
+
+
 interface ProductRepositoryInterface {
     public function getAll();
 } 

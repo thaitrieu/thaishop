@@ -5,7 +5,8 @@
     <title>Document</title>
 </head>
 <body>
-    <p>vis produkter her</p>
+    <p>vis produkter her</p><br>
+    {{--{{ $product }}--}}
     @foreach ($product as $p)
     {{ $p->name }} <br>
     @endforeach
