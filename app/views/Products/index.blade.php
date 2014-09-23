@@ -6,9 +6,10 @@
 </head>
 <body>
     <p>vis produkter her</p><br>
-    {{--{{ $product }}--}}
-    @foreach ($product as $p)
-    {{ $p->name }} <br>
+
+    @foreach ($data as $d)
+    {{ $d }} <br>
     @endforeach
+
 </body>
 </html>

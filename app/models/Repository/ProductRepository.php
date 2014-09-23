@@ -10,8 +10,21 @@
 
 class ProductRepository implements ProductRepositoryInterface {
 
+
+
     public function getAll()
     {
         return Product::all();
+    }
+
+
+
+    public function getTitle()
+    {
+        $products = Product::all();
+        foreach ($products as $p) {
+            $data[] = $p->name;
+        }
+        return $data;
     }
 } 
