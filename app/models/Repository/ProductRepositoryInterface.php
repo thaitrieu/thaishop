@@ -6,7 +6,7 @@
  * Time: 13:56
  */
 
-
+namespace Models\Repository;
 
 interface ProductRepositoryInterface {
     public function getAll();

@@ -11,7 +11,7 @@
 |
 */
 
-App::bind('ProductRepositoryInterface', 'ProductRepository');
+//App::bind('ProductRepositoryInterface', 'ProductRepository');
 
 Route::get('/', function()
 {
