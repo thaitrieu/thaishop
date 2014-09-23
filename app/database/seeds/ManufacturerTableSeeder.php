@@ -6,6 +6,10 @@
  * Time: 10:28
  */
 
-class ManufacturerTableSeeder {
+class ManufacturerTableSeeder extends Seeder {
+
+    public function run() {
+        //
+    }
 
 } 

@@ -15,3 +15,12 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::get('products', ['as' => 'products', 'uses' => 'ProductsController@index']);
+
+//App::bind('ProductRepositoryInterface', function()
+//{
+//    return new ProductRepository();
+//});
+
+App::bind('ProductRepositoryInterface', 'ProductRepository');

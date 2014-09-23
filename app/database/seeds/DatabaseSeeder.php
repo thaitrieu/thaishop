@@ -1,5 +1,7 @@
 <?php
 
+
+
 class DatabaseSeeder extends Seeder {
 
 	/**
@@ -11,7 +13,51 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		// $this->call('UserTableSeeder');
+        $this->call('ManufacturerTableSeeder');
+		$this->call('ProductTableSeeder');
 	}
 
+}
+
+class ManufacturerTableSeeder extends Seeder {
+
+    public function run() {
+
+        DB::table('products')->truncate();
+
+        $faker = Faker\Factory::create();
+
+        for ( $i=0; $i<20; $i++ ){
+            $manufacturers[] = ['name' => $faker->company];
+
+        }
+
+        DB::table('manufacturers')->insert($manufacturers);
+
+
+    }
+}
+
+class ProductTableSeeder extends Seeder {
+
+    public function run() {
+
+        DB::table('products')->truncate();
+
+        $faker = Faker\Factory::create();
+
+        for ( $i=0; $i<100; $i++ ){
+            $products[] = [
+                'name' => $faker->word,
+                'description' => $faker->sentence,
+                'price' => $faker->randomFloat(2, 1, 500),
+                'quantity' => $faker->numberBetween(0,500),
+                'manufacturer_id' => $faker->numberBetween(1,15),
+                'created_at' => $faker->dateTime,
+                'updated_at' => $faker->dateTime
+            ];
+        }
+
+        DB::table('products')->insert($products);
+    }
 }
