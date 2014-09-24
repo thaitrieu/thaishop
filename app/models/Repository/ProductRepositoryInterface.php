@@ -10,4 +10,8 @@
 
 interface ProductRepositoryInterface {
     public function getAll();
+
+    public function getTitle();
+
+    public function addProduct();
 } 

@@ -31,4 +31,16 @@ class ProductRepository implements ProductRepositoryInterface {
         }
         return $data;
     }
-} 
+
+    public function addProduct()
+    {
+        //
+        $product = new Product();
+        $product->name = 'Pandaøje';
+        $product->description = 'Sundt og lækkert';
+        $product->quantity = 5;
+        $product->price = 999.95;
+        $product->manufacturer_id = 11;
+        $product->save();
+    }
+}

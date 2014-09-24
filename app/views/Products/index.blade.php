@@ -7,7 +7,7 @@
         <p>Viser alle produkter.</p>
         <p>Scroll</p>
         <p>
-          <a class="btn btn-lg btn-primary" href="#" role="button">Hit it &raquo;</a>
+          <a class="btn btn-lg btn-primary" href="addProduct" role="button">Hit it &raquo;</a>
         </p>
       </div>
 
