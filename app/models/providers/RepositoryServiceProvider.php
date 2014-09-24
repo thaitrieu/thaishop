@@ -6,7 +6,7 @@
  * Time: 15:18
  */
 
-namespace Models\Providers;
+//namespace Models\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -16,8 +16,10 @@ class RepositoryServiceProvider extends ServiceProvider {
     public function register()
     {
         $this->app->bind(
-            'Models\Repository\ProductRepositoryInterface',
-            'Models\Repository\ProductRepository'
+            'ProductRepositoryInterface',
+            function() {
+                return new ProductRepository();
+            }
         );
     }
 } 

@@ -6,14 +6,14 @@
  * Time: 13:55
  */
 
-namespace Models\Repository;
+//namespace Models\Repository;
 
 class ProductRepository implements ProductRepositoryInterface {
 
-    public function __construct(Product $product)
-    {
-        $this->model = $product;
-    }
+//    public function __construct(Product $product)
+//    {
+//        $this->model = $product;
+//    }
 
 
     public function getAll()

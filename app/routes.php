@@ -13,6 +13,8 @@
 
 //App::bind('ProductRepositoryInterface', 'ProductRepository');
 
+
+
 Route::get('/', function()
 {
 	return View::make('hello');

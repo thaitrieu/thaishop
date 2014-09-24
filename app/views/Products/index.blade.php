@@ -1,15 +1,19 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-<body>
-    <p>vis produkter her</p><br>
+@extends('layouts.default')
 
-    @foreach ($data as $d)
-    {{ $d }} <br>
-    @endforeach
+@section('content')
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Produkter</h1>
+        <p>Viser alle produkter.</p>
+        <p>Scroll</p>
+        <p>
+          <a class="btn btn-lg btn-primary" href="#" role="button">Hit it &raquo;</a>
+        </p>
+      </div>
 
-</body>
-</html>
+        @foreach ($data as $d)
+            <p style="font-size: small">{{ $d }}<br></p>
+        @endforeach
+
+
+@stop
