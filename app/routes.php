@@ -24,7 +24,7 @@ Route::get('products', ['as' => 'products', 'uses' => 'ProductsController@index'
 
 Route::get('addProduct', ['as' => 'products.addProduct', 'uses' => 'ProductsController@create']); //lav om til post
 
-Route::get('create', ['as' => 'create', 'uses' => 'ProductsController@create']); ///// hvorfor må as ikke være products.create?
+//Route::get('create', ['as' => 'create', 'uses' => 'ProductsController@create']); ///// hvorfor må as ikke være products.create?
 
 //App::bind('ProductRepositoryInterface', function()
 //{
