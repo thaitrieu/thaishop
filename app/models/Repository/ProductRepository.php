@@ -34,13 +34,28 @@ class ProductRepository implements ProductRepositoryInterface {
 
     public function addProduct()
     {
-        //
+        $input = Input::all();
+
+        $rules = [
+            'name' => 'required|alpha_num',
+            'description' => 'required',
+            'price' => 'required',
+            'quantity' => 'required'];
+
+        $validator = Validator::make($input, $rules);
+
+        if(!$validator->passes()) {
+            return Redirect::back()->withInput()->withErrors($validator);
+        }
+
         $product = new Product();
-        $product->name = 'Pandaøje';
-        $product->description = 'Sundt og lækkert';
-        $product->quantity = 5;
-        $product->price = 999.95;
-        $product->manufacturer_id = 11;
+        $product->name = Input::get('name');
+        $product->description = Input::get('description');
+        $product->quantity = Input::get('quantity');
+        $product->price = Input::get('price');
+        $product->manufacturer_id = Input::get('manufacturer_id');
         $product->save();
+
+        return $product;
     }
 }

@@ -1,11 +1,6 @@
 <?php
 
-class ProductsController extends \BaseController {
-
-    public function __construct(ProductRepositoryInterface $product)
-    {
-        $this->product = $product;    //!!!!!!!!!!!!!!!
-    }
+class UserController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -14,9 +9,7 @@ class ProductsController extends \BaseController {
 	 */
 	public function index()
 	{
-        $data = $this->product->getTitle();
-
-        return View::make('products.index', compact('data'));
+		//
 	}
 
 
@@ -27,19 +20,8 @@ class ProductsController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
-//        $data = $this->product->addProduct();
-//
-//        return Redirect::to('products');
-        return View::make('products.create');
+		return View::make('User.create');
 	}
-
-    public function postCreate()
-    {
-        $product = $this->product->addProduct();
-
-        return Redirect::back();
-    }
 
 
 	/**
