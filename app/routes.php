@@ -11,27 +11,30 @@
 |
 */
 
-//App::bind('ProductRepositoryInterface', 'ProductRepository');
-
-
-
-Route::get('/', function()
+Route::group(['before' => 'auth'], function()
 {
-	return View::make('hello');
+    Route::get('/', function()
+    {
+        return Redirect::route('products.index');
+    });
+
+    Route::get('login', 'SessionsController@create');
+
+    Route::get('logout', 'SessionsController@destroy');
+
+
+    Route::resource('products', 'ProductsController');
+
+    Route::resource('users', 'UsersController');
+
+    Route::resource('sessions', 'SessionsController');
+
+    Route::get('users', function()
+    {
+        return View::make('user.index');
+    });
 });
 
-Route::get('products', ['as' => 'products', 'uses' => 'ProductsController@index']);
+Route::get('login', 'SessionsController@create');
 
-Route::post('create', ['as' => 'create', 'uses' => 'ProductsController@postCreate']); //lav om til post
-
-Route::get('create', ['as' => 'create', 'uses' => 'ProductsController@create']); ///// hvorfor må as ikke være products.create?
-
-Route::get('user/create', ['as' => 'user.create', 'uses' => 'UserController@create']);
-
-Route::post('user/create', ['as' => 'user.create', 'uses' => 'UserController@store']);
-
-//App::bind('ProductRepositoryInterface', function()
-//{
-//    return new ProductRepository();
-//});
-
+Route::get('users/create', 'UsersController@create');

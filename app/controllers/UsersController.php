@@ -1,6 +1,11 @@
 <?php
 
-class UserController extends \BaseController {
+class UsersController extends \BaseController {
+
+    public function __construct(UserRepositoryInterface $user)
+    {
+        $this->user = $user;
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -9,7 +14,7 @@ class UserController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		return View::make('user.index');
 	}
 
 
@@ -20,7 +25,7 @@ class UserController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('User.create');
+		return View::make('user.create');
 	}
 
 
@@ -31,7 +36,9 @@ class UserController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$this->user->createUser();
+
+        return View::make('user.login');
 	}
 
 

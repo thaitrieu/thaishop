@@ -34,13 +34,6 @@ class ProductsController extends \BaseController {
         return View::make('products.create');
 	}
 
-    public function postCreate()
-    {
-        $product = $this->product->addProduct();
-
-        return Redirect::back();
-    }
-
 
 	/**
 	 * Store a newly created resource in storage.
@@ -49,7 +42,9 @@ class ProductsController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+        $this->product->addProduct();
+
+        return Redirect::back();
 	}
 
 

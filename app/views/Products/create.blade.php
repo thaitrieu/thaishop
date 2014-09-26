@@ -11,8 +11,7 @@
                 <li>{{ $message }}</li>
             @endforeach
         </div>
-
-            {{ Form::open(['route' => 'create']) }}
+            {{ Form::open(['route' => 'products.store']) }}
                 {{ Form::label('name', 'Navn:') }}<br>
                 {{ Form::text('name') }}<br><br>
                 {{ Form::label('description', 'Beskrivelse:') }}<br>

@@ -7,7 +7,6 @@
 </head>
 <body style="padding-top: 70px">
     @include('partials.navbar')
-    @include('partials.sidebar')
     {{--<p>default.blade.php</p>--}}
     <div class="container">
         @yield('content')

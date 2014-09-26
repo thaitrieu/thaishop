@@ -36,6 +36,7 @@ class ProductRepository implements ProductRepositoryInterface {
     {
         $input = Input::all();
 
+
         $rules = [
             'name' => 'required|alpha_num',
             'description' => 'required',

@@ -3,7 +3,7 @@
 @section('content')
       <div class="jumbotron">
         <h1>Opret Bruger</h1>
-            {{ Form::open(['route' => 'user.create']) }}
+            {{ Form::open(['route' => 'users.store']) }}
                 {{ Form::label('first_name', 'Fornavn:') }}<br>
                 {{ Form::text('first_name') }}<br><br>
                 {{ Form::label('last_name', 'Efternavn:') }}<br>
