@@ -27,13 +27,15 @@ Route::group(['before' => 'auth'], function()
 
     Route::resource('users', 'UsersController');
 
-    Route::resource('sessions', 'SessionsController');
+//    Route::resource('sessions', 'SessionsController');
 
     Route::get('users', function()
     {
         return View::make('user.index');
     });
 });
+
+Route::resource('sessions', 'SessionsController');
 
 Route::get('login', 'SessionsController@create');
 
