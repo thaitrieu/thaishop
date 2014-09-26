@@ -18,16 +18,16 @@ Route::group(['before' => 'auth'], function()
         return Redirect::route('products.index');
     });
 
-//    Route::get('login', 'SessionsController@create');
+    Route::get('login', 'SessionsController@create');
 
-//    Route::get('logout', 'SessionsController@destroy');
+    Route::get('logout', 'SessionsController@destroy');
 
 
     Route::resource('products', 'ProductsController');
 
     Route::resource('users', 'UsersController');
 
-//    Route::resource('sessions', 'SessionsController');
+    Route::resource('sessions', 'SessionsController');
 
     Route::get('users', function()
     {
@@ -38,5 +38,3 @@ Route::group(['before' => 'auth'], function()
 Route::get('login', 'SessionsController@create');
 
 Route::get('users/create', 'UsersController@create');
-
-Route::resource('sessions', 'SessionsController');
