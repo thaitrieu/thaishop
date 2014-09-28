@@ -11,32 +11,25 @@
 |
 */
 
-Route::group(['before' => 'auth'], function()
+
+
+Route::get('/', function()
 {
-    Route::get('/', function()
-    {
-        return Redirect::route('products.index');
-    });
-
-    Route::get('login', 'SessionsController@create');
-
-    Route::get('logout', 'SessionsController@destroy');
-
-
-    Route::resource('products', 'ProductsController');
-
-    Route::resource('users', 'UsersController');
-
-//    Route::resource('sessions', 'SessionsController');
-
-    Route::get('users', function()
-    {
-        return View::make('user.index');
-    });
+    return Redirect::route('products.index');
 });
-
-Route::resource('sessions', 'SessionsController');
 
 Route::get('login', 'SessionsController@create');
 
-Route::get('users/create', 'UsersController@create');
+Route::get('logout', 'SessionsController@destroy');
+
+
+Route::resource('products', 'ProductsController');
+
+Route::resource('users', 'UsersController');
+
+Route::resource('sessions', 'SessionsController');
+
+Route::get('users', function()
+{
+    return View::make('user.index');
+})->before('auth');

@@ -19,9 +19,12 @@ class SessionsController extends \BaseController {
 	 */
 	public function create()
 	{
-        if(Auth::check()){ return Redirect::to('users');}
+        $manufacturers = Manufacturer::all();   //ud i repo
+        if(Auth::check()){
+            $manufacturers = Manufacturer::all();   //ud i repo
+            return Redirect::to('users', compact('manufacturers'));}
 
-		return View::make('user.login');
+		return View::make('user.login', compact('manufacturers'));
 	}
 
 	/**
@@ -31,10 +34,11 @@ class SessionsController extends \BaseController {
 	 */
 	public function store()
 	{
+        $manufacturers = Manufacturer::all();   //ud i repo
         $credentials = Input::only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return View::make('user.index');
+            return View::make('user.index', compact('manufacturers'));
         }
 
         return Redirect::back()->withInput();

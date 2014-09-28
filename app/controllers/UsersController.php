@@ -14,7 +14,8 @@ class UsersController extends \BaseController {
 	 */
 	public function index()
 	{
-		return View::make('user.index');
+        $manufacturers = Manufacturer::all();   //ud i repo
+		return View::make('user.index', compact('manufacturers'));
 	}
 
 
@@ -25,7 +26,8 @@ class UsersController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('user.create');
+        $manufacturers = Manufacturer::all();   //ud i repo
+		return View::make('user.create', compact('manufacturers'));
 	}
 
 
@@ -36,9 +38,10 @@ class UsersController extends \BaseController {
 	 */
 	public function store()
 	{
+        $manufacturers = Manufacturer::all();   //ud i repo
 		$this->user->createUser();
 
-        return View::make('user.login');
+        return View::make('user.login', compact('manufacturers'));
 	}
 
 

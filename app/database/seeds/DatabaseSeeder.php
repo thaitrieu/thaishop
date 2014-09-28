@@ -13,8 +13,9 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-        $this->call('ManufacturerTableSeeder');
-		$this->call('ProductTableSeeder');
+
+//        $this->call('ManufacturerTableSeeder');
+        $this->call('ProductTableSeeder');
 	}
 
 }
@@ -23,11 +24,11 @@ class ManufacturerTableSeeder extends Seeder {
 
     public function run() {
 
-        DB::table('products')->truncate();
+//        DB::table('manufacturers')->truncate();
 
         $faker = Faker\Factory::create();
 
-        for ( $i=0; $i<20; $i++ ){
+        for ( $i=0; $i<10; $i++ ){
             $manufacturers[] = ['name' => $faker->company];
 
         }
@@ -52,7 +53,7 @@ class ProductTableSeeder extends Seeder {
                 'description' => $faker->sentence,
                 'price' => $faker->randomFloat(2, 1, 500),
                 'quantity' => $faker->numberBetween(0,500),
-                'manufacturer_id' => $faker->numberBetween(1,15),
+                'manufacturer_id' => $faker->numberBetween(1,7),
                 'created_at' => $faker->dateTime,
                 'updated_at' => $faker->dateTime
             ];

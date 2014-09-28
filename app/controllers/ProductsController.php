@@ -14,9 +14,10 @@ class ProductsController extends \BaseController {
 	 */
 	public function index()
 	{
-        $data = $this->product->getTitle();
+        $manufacturers = Manufacturer::all();   //ud i repo
+        $data = $this->product->getAll();
 
-        return View::make('products.index', compact('data'));
+        return View::make('products.index', compact('data', 'manufacturers'));
 	}
 
 
@@ -31,7 +32,8 @@ class ProductsController extends \BaseController {
 //        $data = $this->product->addProduct();
 //
 //        return Redirect::to('products');
-        return View::make('products.create');
+        $manufacturers = Manufacturer::all();   //ud i repo
+        return View::make('products.create', compact('manufacturers'));
 	}
 
 
