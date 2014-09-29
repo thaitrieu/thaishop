@@ -4,6 +4,7 @@
 
 class CartsController extends \BaseController {
 
+
     public function __construct(ManufacturerRepositoryInterface $manufacturer)
     {
         $this->manufacturer = $manufacturer;
@@ -16,11 +17,12 @@ class CartsController extends \BaseController {
 	 */
 	public function index()
 	{
+        /*
+         * Vis indkøbskurv med tilføjede produkter! Skal implementeres!
+         */
         $manufacturers = $this->manufacturer->getAll();
 
-        $cart = App::make('cart');
-
-        Session::put('cart', $cart);
+        $cart = new Cart();
 
         return View::make('cart.index', compact('manufacturers'));
 	}
@@ -44,7 +46,11 @@ class CartsController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+//        $items = [Input => 1];
+//        dd($items[5]);
+
+
+        dd(Input::all());
 	}
 
 

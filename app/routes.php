@@ -10,7 +10,10 @@
 |
 */
 
-
+App::bind('cart', function()
+{
+    return new Cart();
+});
 
 Route::get('/', function()
 {
@@ -28,16 +31,11 @@ Route::resource('users', 'UsersController');
 
 Route::resource('sessions', 'SessionsController');
 
+Route::resource('carts', 'CartsController');
+
 Route::get('manufacturer/{id?}', 'ManufacturersController@show');
 
 Route::get('admin', function()
 {
     return Redirect::to('users');
 })->before('auth');
-
-App::bind('cart', function()
-{
-    return new Cart();
-});
-
-Route::resource('cart', 'CartsController');

@@ -27,7 +27,12 @@
                   <td>{{ $p->description }}</td>
                   <td>{{ $p->price }} kr.</td>
                   <td>{{ $p->quantity }}</td>
-                  <td><a href="{{ URL::route('cart.store', [$productId]) }}"><img width="25" height="25" src="{{ asset('img/basket.png') }}"/></a></td>
+                  <td>
+                    {{ Form::open(['route' => 'carts.store']) }}
+                        {{ Form::hidden($p) }}
+                        {{ Form::image('img/basket.png', 'submit', ['style' => 'width: 25px; height: 25px']) }}
+                    {{ Form::close() }}
+                  </td>
                 </tr>
 
                 @endforeach
