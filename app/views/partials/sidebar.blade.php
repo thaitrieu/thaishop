@@ -4,7 +4,7 @@
           <ul class="nav nav-sidebar">
             {{--<li class="active"><a href="#">Overview</a></li>--}}
             @foreach($manufacturers as $m)
-                <li><a href="#">{{ $m->name }}</a></li>
+                <li><a href="/thaishop/public/manufacturer/{{ $m->id }}">{{ $m->name }}</a></li>
             @endforeach
           </ul>
         </div>

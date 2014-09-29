@@ -16,7 +16,7 @@
         <li class="active"><a href="/thaishop/public/products">Produkter</a></li>
 
         @if(Auth::check())
-            <li><a href="/thaishop/public/users">Min konto</a></li>
+            <li><a href="/thaishop/public/admin">Min konto</a></li>
             <li><a href="/thaishop/public/logout">Logud</a></li>
             @else
                 <li><a href="/thaishop/public/users/create">Opret bruger</a></li>

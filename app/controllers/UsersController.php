@@ -2,8 +2,10 @@
 
 class UsersController extends \BaseController {
 
-    public function __construct(UserRepositoryInterface $user)
+    public function __construct(UserRepositoryInterface $user, ManufacturerRepositoryInterface $manufacturer)
     {
+        $this->manufacturer = $manufacturer;
+
         $this->user = $user;
     }
 
@@ -14,8 +16,13 @@ class UsersController extends \BaseController {
 	 */
 	public function index()
 	{
-        $manufacturers = Manufacturer::all();   //ud i repo
-		return View::make('user.index', compact('manufacturers'));
+        $manufacturers = $this->manufacturer->getAll();
+
+        if(Auth::check()) {
+            $manufacturers = $this->manufacturer->getAll();
+            return View::make('user.index', compact('manufacturers'));
+        }
+        return View::make('user.login', compact('manufacturers'));
 	}
 
 
@@ -26,7 +33,8 @@ class UsersController extends \BaseController {
 	 */
 	public function create()
 	{
-        $manufacturers = Manufacturer::all();   //ud i repo
+        $manufacturers = $this->manufacturer->getAll();
+
 		return View::make('user.create', compact('manufacturers'));
 	}
 
@@ -38,7 +46,7 @@ class UsersController extends \BaseController {
 	 */
 	public function store()
 	{
-        $manufacturers = Manufacturer::all();   //ud i repo
+        $manufacturers = $this->manufacturer->getAll();
 		$this->user->createUser();
 
         return View::make('user.login', compact('manufacturers'));

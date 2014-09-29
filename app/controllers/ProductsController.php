@@ -2,8 +2,10 @@
 
 class ProductsController extends \BaseController {
 
-    public function __construct(ProductRepositoryInterface $product)
+    public function __construct(ProductRepositoryInterface $product, ManufacturerRepositoryInterface $manufacturer)
     {
+        $this->manufacturer = $manufacturer;
+
         $this->product = $product;    //!!!!!!!!!!!!!!!
     }
 
@@ -14,7 +16,8 @@ class ProductsController extends \BaseController {
 	 */
 	public function index()
 	{
-        $manufacturers = Manufacturer::all();   //ud i repo
+        $manufacturers = $this->manufacturer->getAll();
+
         $data = $this->product->getAll();
 
         return View::make('products.index', compact('data', 'manufacturers'));
@@ -28,11 +31,8 @@ class ProductsController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
-//        $data = $this->product->addProduct();
-//
-//        return Redirect::to('products');
-        $manufacturers = Manufacturer::all();   //ud i repo
+        $manufacturers = $this->manufacturer->getAll();
+
         return View::make('products.create', compact('manufacturers'));
 	}
 

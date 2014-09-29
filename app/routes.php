@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -29,7 +28,16 @@ Route::resource('users', 'UsersController');
 
 Route::resource('sessions', 'SessionsController');
 
-Route::get('users', function()
+Route::get('manufacturer/{id?}', 'ManufacturersController@show');
+
+Route::get('admin', function()
 {
-    return View::make('user.index');
+    return Redirect::to('users');
 })->before('auth');
+
+App::bind('cart', function()
+{
+    return new Cart();
+});
+
+Route::resource('cart', 'CartsController');

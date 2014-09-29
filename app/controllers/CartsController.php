@@ -1,6 +1,8 @@
 <?php
 
-class SessionsController extends \BaseController {
+
+
+class CartsController extends \BaseController {
 
     public function __construct(ManufacturerRepositoryInterface $manufacturer)
     {
@@ -14,8 +16,15 @@ class SessionsController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+        $manufacturers = $this->manufacturer->getAll();
+
+        $cart = App::make('cart');
+
+        Session::put('cart', $cart);
+
+        return View::make('cart.index', compact('manufacturers'));
 	}
+
 
 	/**
 	 * Show the form for creating a new resource.
@@ -24,14 +33,9 @@ class SessionsController extends \BaseController {
 	 */
 	public function create()
 	{
-        $manufacturers = $this->manufacturer->getAll();
-
-        if(Auth::check()){
-            $manufacturers = $this->manufacturer->getAll();
-            return Redirect::to('users', compact('manufacturers'));}
-
-		return View::make('user.login', compact('manufacturers'));
+		//
 	}
+
 
 	/**
 	 * Store a newly created resource in storage.
@@ -40,16 +44,9 @@ class SessionsController extends \BaseController {
 	 */
 	public function store()
 	{
-        $manufacturers = $this->manufacturer->getAll();
-
-        $credentials = Input::only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            return View::make('user.index', compact('manufacturers'));
-        }
-
-        return Redirect::back()->withInput();
+		//
 	}
+
 
 	/**
 	 * Display the specified resource.
@@ -62,6 +59,7 @@ class SessionsController extends \BaseController {
 		//
 	}
 
+
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -72,6 +70,7 @@ class SessionsController extends \BaseController {
 	{
 		//
 	}
+
 
 	/**
 	 * Update the specified resource in storage.
@@ -84,15 +83,17 @@ class SessionsController extends \BaseController {
 		//
 	}
 
+
 	/**
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy()
+	public function destroy($id)
 	{
-        Auth::logout();
-        return Redirect::route('sessions.create');
+		//
 	}
+
+
 }
