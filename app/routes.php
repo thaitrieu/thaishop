@@ -10,10 +10,10 @@
 |
 */
 
-App::bind('cart', function()
-{
-    return new Cart();
-});
+//App::bind('cart', function()
+//{
+//    return new Cart();
+//});
 
 Route::get('/', function()
 {

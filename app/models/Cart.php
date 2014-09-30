@@ -15,24 +15,24 @@ class Cart {
 
     protected $userId;
 
-    public function __construct()
+    public function __construct($items)
     {
-        $this->sum = 5;
+        $this->items = $items;
     }
 
     public function addItem()
     {
-
+        //
     }
 
     public function removeItem()
     {
-
+        //
     }
 
     public function getItems()
     {
-
+        return $this->items;
     }
 
     public function getSum()
@@ -42,6 +42,6 @@ class Cart {
 
     public function getUserId()
     {
-
+        //
     }
 } 

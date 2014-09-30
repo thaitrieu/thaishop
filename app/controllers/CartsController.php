@@ -17,14 +17,29 @@ class CartsController extends \BaseController {
 	 */
 	public function index()
 	{
-        /*
-         * Vis indkøbskurv med tilføjede produkter! Skal implementeres!
-         */
-        $manufacturers = $this->manufacturer->getAll();
+        $cart = new ShoppingCart();
+//        $p = new Product();
+//        $p->
 
-        $cart = new Cart();
+        $item1 = new Item(1, 'Nike Air', 200);
+        $item2 = new Item(2, 'Adidas Air', 300);
+        $item3 = new Item(3, 'Pumja Air', 400);
 
-        return View::make('cart.index', compact('manufacturers'));
+        $cart->addItem($item1);
+        $cart->addItem($item2);
+        $cart->updateItem($item2, 99);
+
+        dd($cart);
+
+//        $manufacturers = $this->manufacturer->getAll();
+//
+//        $cart = new Cart(Session::get('items'));
+//
+//        dd($cart->getItems());
+//
+////        $cart->getData(); // ikke implementeret
+//
+//        return View::make('cart.index', compact('manufacturers'));
 	}
 
 
@@ -46,11 +61,26 @@ class CartsController extends \BaseController {
 	 */
 	public function store()
 	{
-//        $items = [Input => 1];
-//        dd($items[5]);
+        $product_id = (integer) Input::get('product_id');
 
+        if(Session::has('items')){
+            $items = Session::get('items');
 
-        dd(Input::all());
+            if(array_key_exists($product_id, $items)){
+                $items[$product_id] += 1;
+            } else {
+                $items[$product_id] = 1;
+            }
+
+            Session::put('items', $items);
+
+        } else {
+            $items = [Input::get('product_id') => 1];
+            Session::put('items', $items);
+            return Session::get('items');
+        }
+
+        return Redirect::action('CartsController@index');
 	}
 
 

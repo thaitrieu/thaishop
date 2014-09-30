@@ -29,7 +29,7 @@
                   <td>{{ $p->quantity }}</td>
                   <td>
                     {{ Form::open(['route' => 'carts.store']) }}
-                        {{ Form::hidden($p) }}
+                        {{ Form::hidden('product_id', $p->id) }}
                         {{ Form::image('img/basket.png', 'submit', ['style' => 'width: 25px; height: 25px']) }}
                     {{ Form::close() }}
                   </td>
