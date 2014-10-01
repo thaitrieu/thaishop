@@ -39,3 +39,10 @@ Route::get('admin', function()
 {
     return Redirect::to('users');
 })->before('auth');
+
+//Route::get('api', function()
+//{
+//    $response = Response::make(['test' => 'hej'], 200);
+//    $response->headers->set('Content-Type', 'application/json');
+//    return $response;
+//});

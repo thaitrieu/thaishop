@@ -5,9 +5,10 @@
 class CartsController extends \BaseController {
 
 
-    public function __construct(ManufacturerRepositoryInterface $manufacturer)
+    public function __construct(ManufacturerRepositoryInterface $manufacturer, ProductRepositoryInterface $product)
     {
         $this->manufacturer = $manufacturer;
+        $this->product = $product;
     }
 
 	/**
@@ -17,19 +18,12 @@ class CartsController extends \BaseController {
 	 */
 	public function index()
 	{
-        $cart = new ShoppingCart();
-//        $p = new Product();
-//        $p->
-
-        $item1 = new Item(1, 'Nike Air', 200);
-        $item2 = new Item(2, 'Adidas Air', 300);
-        $item3 = new Item(3, 'Pumja Air', 400);
-
-        $cart->addItem($item1);
-        $cart->addItem($item2);
-        $cart->updateItem($item2, 99);
-
-        dd($cart);
+        if(Session::has('cart'))
+        {
+            dd(Session::get('cart'));
+        } else {
+            return 'Indkøbskurven eksisterer ikke i session!';
+        }
 
 //        $manufacturers = $this->manufacturer->getAll();
 //
@@ -61,26 +55,47 @@ class CartsController extends \BaseController {
 	 */
 	public function store()
 	{
-        $product_id = (integer) Input::get('product_id');
+        $cart = new ShoppingCart();
 
-        if(Session::has('items')){
-            $items = Session::get('items');
-
-            if(array_key_exists($product_id, $items)){
-                $items[$product_id] += 1;
-            } else {
-                $items[$product_id] = 1;
-            }
-
-            Session::put('items', $items);
-
-        } else {
-            $items = [Input::get('product_id') => 1];
-            Session::put('items', $items);
-            return Session::get('items');
+        if(Session::has('cart')){
+            $cart = Session::get('cart');
         }
 
+        $product_id = Input::get('product_id');
+
+        $product = $this->product->getProduct($product_id);
+
+        $name = $product->name;
+        $price = $product->price;
+
+        $item = new Item($product_id, $name, $price);
+
+        $cart->updateItem($item, 1);
+
+        Session::put('cart', $cart);
+
         return Redirect::action('CartsController@index');
+
+//        $product_id = (integer) Input::get('product_id');
+//
+//        if(Session::has('items')){
+//            $items = Session::get('items');
+//
+//            if(array_key_exists($product_id, $items)){
+//                $items[$product_id] += 1;
+//            } else {
+//                $items[$product_id] = 1;
+//            }
+//
+//            Session::put('items', $items);
+//
+//        } else {
+//            $items = [Input::get('product_id') => 1];
+//            Session::put('items', $items);
+//            return Session::get('items');
+//        }
+//
+//        return Redirect::action('CartsController@index');
 	}
 
 
