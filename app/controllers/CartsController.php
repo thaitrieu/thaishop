@@ -4,11 +4,17 @@
 
 class CartsController extends \BaseController {
 
+    protected $manufacturer;
 
-    public function __construct(ManufacturerRepositoryInterface $manufacturer, ProductRepositoryInterface $product)
+    protected $product;
+
+    protected $cart;
+
+    public function __construct(ManufacturerRepositoryInterface $manufacturer, ProductRepositoryInterface $product, Cart $cart)
     {
         $this->manufacturer = $manufacturer;
         $this->product = $product;
+        $this->cart = $cart;
     }
 
 	/**
@@ -18,22 +24,28 @@ class CartsController extends \BaseController {
 	 */
 	public function index()
 	{
-        if(Session::has('cart'))
-        {
-            dd(Session::get('cart'));
-        } else {
-            return 'Indkøbskurven eksisterer ikke i session!';
-        }
 
-//        $manufacturers = $this->manufacturer->getAll();
-//
-//        $cart = new Cart(Session::get('items'));
-//
-//        dd($cart->getItems());
-//
-////        $cart->getData(); // ikke implementeret
-//
-//        return View::make('cart.index', compact('manufacturers'));
+        // Find $items array i session
+        // send $items array til cart
+        // brug cart til at læse det og sende nødvendig data tilbage
+        // vis det i view
+
+        $manufacturers = $this->manufacturer->getAll();
+
+        if(Session::has('items'))
+        {
+            $items = Session::get('items');
+
+            $this->cart->addItems($items);
+
+            $productList = $this->cart->getProducts();
+
+            $sum = $this->cart->getSum();
+
+            return View::make('cart.index', compact('productList', 'manufacturers', 'sum'));
+        } else {
+            return View::make('cart.index', compact('manufacturers'));
+        }
 	}
 
 
@@ -55,47 +67,25 @@ class CartsController extends \BaseController {
 	 */
 	public function store()
 	{
-        $cart = new ShoppingCart();
+        $product_id = (integer) Input::get('product_id');
 
-        if(Session::has('cart')){
-            $cart = Session::get('cart');
+        if(Session::has('items')){
+            $items = Session::get('items');
+
+            if(array_key_exists($product_id, $items)){
+                $items[$product_id] += 1;
+            } else {
+                $items[$product_id] = 1;
+            }
+
+            Session::put('items', $items);
+
+        } else {
+            $items = [$product_id => 1];
+            Session::put('items', $items);
         }
 
-        $product_id = Input::get('product_id');
-
-        $product = $this->product->getProduct($product_id);
-
-        $name = $product->name;
-        $price = $product->price;
-
-        $item = new Item($product_id, $name, $price);
-
-        $cart->updateItem($item, 1);
-
-        Session::put('cart', $cart);
-
         return Redirect::action('CartsController@index');
-
-//        $product_id = (integer) Input::get('product_id');
-//
-//        if(Session::has('items')){
-//            $items = Session::get('items');
-//
-//            if(array_key_exists($product_id, $items)){
-//                $items[$product_id] += 1;
-//            } else {
-//                $items[$product_id] = 1;
-//            }
-//
-//            Session::put('items', $items);
-//
-//        } else {
-//            $items = [Input::get('product_id') => 1];
-//            Session::put('items', $items);
-//            return Session::get('items');
-//        }
-//
-//        return Redirect::action('CartsController@index');
 	}
 
 
@@ -120,6 +110,7 @@ class CartsController extends \BaseController {
 	public function edit($id)
 	{
 		//
+        return 'du er nået frem til edit';
 	}
 
 
@@ -129,9 +120,21 @@ class CartsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update()
 	{
-		//
+		// Læse ændringer i kurven og opdater
+        $oldQty = Session::get('items');
+        $newQty = Input::get('newQty');
+
+        foreach($newQty as $n){
+            $oldQty[key($newQty)] = $n;
+            next($newQty);
+        }
+
+        Session::put('items', $oldQty);
+
+        return Redirect::action('CartsController@index');
+
 	}
 
 
@@ -141,9 +144,10 @@ class CartsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy()
 	{
-		//
+		Session::forget('items');
+        return Redirect::action('CartsController@index');
 	}
 
 

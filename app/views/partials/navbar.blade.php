@@ -22,7 +22,7 @@
                 <li><a href="/thaishop/public/users/create">Opret bruger</a></li>
                 <li><a href="/thaishop/public/login">Log ind</a></li>
         @endif()
-
+        <li><a href="/thaishop/public/carts">Indkøbskurv</a></li>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->

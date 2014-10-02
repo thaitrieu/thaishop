@@ -46,3 +46,5 @@ Route::get('admin', function()
 //    $response->headers->set('Content-Type', 'application/json');
 //    return $response;
 //});
+
+Route::get('clear', 'CartsController@destroy'); //midlertidig tøm kurven metode
