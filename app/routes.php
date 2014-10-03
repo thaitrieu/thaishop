@@ -33,6 +33,8 @@ Route::resource('sessions', 'SessionsController');
 
 Route::resource('carts', 'CartsController');
 
+Route::resource('payments', 'PaymentsController');
+
 Route::get('manufacturer/{id?}', 'ManufacturersController@show');
 
 Route::get('admin', function()

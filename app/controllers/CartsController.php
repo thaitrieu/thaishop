@@ -24,27 +24,20 @@ class CartsController extends \BaseController {
 	 */
 	public function index()
 	{
-
-        // Find $items array i session
-        // send $items array til cart
-        // brug cart til at læse det og sende nødvendig data tilbage
-        // vis det i view
-
         $manufacturers = $this->manufacturer->getAll();
 
-        if(Session::has('items'))
-        {
-            $items = Session::get('items');
+        View::share('manufacturers', $manufacturers);
 
-            $this->cart->addItems($items);
+        $itemList = $this->cart->getItemList();
 
-            $productList = $this->cart->getProducts();
+        if($itemList){
 
-            $sum = $this->cart->getSum();
+            $sum = $this->cart->getSum();       //henter sum
 
-            return View::make('cart.index', compact('productList', 'manufacturers', 'sum'));
+            return View::make('cart.index', compact('itemList', 'manufacturers', 'sum'));    // vis det i view
+
         } else {
-            return View::make('cart.index', compact('manufacturers'));
+            return View::make('cart.index', compact('manufacturers'));      // vis det i view
         }
 	}
 
@@ -67,25 +60,11 @@ class CartsController extends \BaseController {
 	 */
 	public function store()
 	{
-        $product_id = (integer) Input::get('product_id');
+        $product_id = (integer) Input::get('product_id');       //henter valgte produkt id fra formen
 
-        if(Session::has('items')){
-            $items = Session::get('items');
+        $this->cart->addSingleItem($product_id);
 
-            if(array_key_exists($product_id, $items)){
-                $items[$product_id] += 1;
-            } else {
-                $items[$product_id] = 1;
-            }
-
-            Session::put('items', $items);
-
-        } else {
-            $items = [$product_id => 1];
-            Session::put('items', $items);
-        }
-
-        return Redirect::action('CartsController@index');
+        return Redirect::action('CartsController@index');       // viser indkøbskurv
 	}
 
 
@@ -122,19 +101,11 @@ class CartsController extends \BaseController {
 	 */
 	public function update()
 	{
-		// Læse ændringer i kurven og opdater
-        $oldQty = Session::get('items');
         $newQty = Input::get('newQty');
 
-        foreach($newQty as $n){
-            $oldQty[key($newQty)] = $n;
-            next($newQty);
-        }
-
-        Session::put('items', $oldQty);
+        $this->cart->updateCart($newQty);
 
         return Redirect::action('CartsController@index');
-
 	}
 
 
@@ -146,7 +117,8 @@ class CartsController extends \BaseController {
 	 */
 	public function destroy()
 	{
-		Session::forget('items');
+		$this->cart->emptyCart();
+
         return Redirect::action('CartsController@index');
 	}
 

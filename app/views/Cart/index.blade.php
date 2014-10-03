@@ -17,18 +17,18 @@
                       <th>Sum</th>
                     </tr>
                   </thead>
-                    @if(isset($productList))
+                    @if(isset($itemList))
                       <tbody>
-                        @foreach($productList as $p)
+                        @foreach($itemList as $i)
 
                         <tr>
-                          <td>{{ $p->id }}</td>
-                          <td>{{ $p->name }}</td>
-                          <td>{{ $p->price }} kr.</td>
+                          <td>{{ $i->id }}</td>
+                          <td>{{ $i->name }}</td>
+                          <td>{{ $i->price }} kr.</td>
                           <td>{{ Form::open(['route' => 'carts.update', 'method' => 'put']) }}
-                              {{ Form::text('newQty['.$p->id.']', $p->qtySelected, ['size' => 1]) }}
+                              {{ Form::text('newQty['.$i->id.']', $i->qtySelected, ['size' => 1]) }}
                               </td>
-                          <td>{{ $p->productSum }}</td>
+                          <td>{{ $i->productSum }}</td>
                         </tr>
 
                         @endforeach
@@ -44,7 +44,7 @@
                             {{ Form::submit('Opdater') }}
                             {{ Form::close() }}</td>
                           <td>
-                            {{ Form::open(['route' => 'carts.update', 'method' => 'put']) }}
+                            {{ Form::open(['route' => 'payments.store']) }}
                             {{ Form::submit('Til betaling') }}
                             {{ Form::close() }}</td>
                         </tr>
@@ -59,7 +59,7 @@
                         </tr>
                       </tbody>
                     @endif
-                    @if(!isset($productList))
+                    @if(!isset($itemList))
                       <tbody>
                         <tr>
                             <td>Indkøbskurven er tom</td>
