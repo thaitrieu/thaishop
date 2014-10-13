@@ -1,19 +1,5 @@
 <?php
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
-
-//App::bind('cart', function()
-//{
-//    return new Cart();
-//});
+use Guzzle\Http\Client;
 
 Route::get('/', function()
 {
@@ -50,3 +36,27 @@ Route::get('admin', function()
 //});
 
 Route::get('clear', 'CartsController@destroy'); //midlertidig tøm kurven metode
+
+Route::get('api', function(){
+    define('API_KEY', '');
+    define('API_SECRET', '');
+
+    $client = new Client('http://zumoapi.dev/loyalty/v1');
+
+//    $request = $client->get('lists?orderby=created_at&order=-1');
+//    $request = $client->post('lists/1/members?firstname=Peter&lastname=Jackson&email=peter2@jackson.com');
+//    $request = $client->get('lists/1/members/9f62d928-4f70-4276-87c2-1e840826dc90');
+    $request = $client->get('campaigns/19');
+
+    $requestTimestamp = gmdate("D, d M Y H:i:s") . ' GMT';
+
+    $requestSignature = base64_encode(hash_hmac('sha256', $requestTimestamp, API_SECRET));
+
+    $request->setAuth(API_KEY, $requestSignature);
+
+    $request->addHeader('X-Request-Timestamp', $requestTimestamp);
+
+    $response = $request->send()->json();
+
+    var_dump($response);
+});
