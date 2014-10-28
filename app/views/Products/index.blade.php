@@ -21,6 +21,7 @@
                 @endforeach
               </tbody>
             </table>
+            <div align="center">{{ $data->links() }}</div>
           </div>
 
         </div>

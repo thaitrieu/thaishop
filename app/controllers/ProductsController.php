@@ -2,6 +2,9 @@
 
 class ProductsController extends \BaseController {
 
+	protected $manufacturer;
+	protected $product;
+
     public function __construct(ProductRepositoryInterface $product, ManufacturerRepositoryInterface $manufacturer)
     {
         $this->manufacturer = $manufacturer;

@@ -38,8 +38,9 @@
                 @endforeach
               </tbody>
             </table>
+            <div align="center">{{ $manufacturerProducts->links() }}</div>
+            <div>Antal varer: {{ $manufacturerProducts->getTotal() }}</div>
           </div>
-
         </div>
 
       </div>

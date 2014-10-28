@@ -18,7 +18,7 @@ class ProductRepository implements ProductRepositoryInterface {
 
     public function getAll()
     {
-        return Product::all();
+        return Product::paginate(10);
     }
 
     public function getProduct($id)
@@ -43,7 +43,7 @@ class ProductRepository implements ProductRepositoryInterface {
 
 
         $rules = [
-            'name' => 'required|alpha_num',
+            'name' => 'required|alpha_spaces',
             'description' => 'required',
             'price' => 'required',
             'quantity' => 'required'];

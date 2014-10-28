@@ -17,14 +17,7 @@ class ManufacturerRepository implements ManufacturerRepositoryInterface {
 
     public function getManufacturerProducts($id)
     {
-        $products = Product::all();
-        $manufacturerProducts = [];
-
-        foreach($products as $p) {
-            if($p->manufacturer_id == $id){
-                $manufacturerProducts[] = $p;
-            }
-        }
+        $manufacturerProducts = Product::where('manufacturer_id', '=', $id)->paginate(10);
 
         return $manufacturerProducts;
     }
