@@ -9,6 +9,8 @@
                 <tr>
                   <th>ID</th>
                   <th>Produktnavn</th>
+                  <th>Lagerstatus</th>
+                  <th>Pris</th>
                 </tr>
               </thead>
 
@@ -17,6 +19,8 @@
                 <tr>
                   <td>{{ $d->id }}</td>
                   <td>{{ $d->name }}</td>
+                  <td>{{ $d->quantity }}</td>
+                  <td>{{ $d->price }}</td>
                 </tr>
                 @endforeach
               </tbody>

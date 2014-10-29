@@ -9,7 +9,7 @@
 
 class Cart {
 
-    protected $items;
+    public $items;
 
     protected $sum;
 

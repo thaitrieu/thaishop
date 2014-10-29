@@ -9,7 +9,6 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>ID</th>
                   <th>Produktnavn</th>
                   <th>Beskrivelse</th>
                   <th>Pris</th>
@@ -22,10 +21,9 @@
                 @foreach($manufacturerProducts as $p)
 
                 <tr>
-                  <td>{{ $p->id }}</td>
-                  <td>{{ $p->name }}</td>
-                  <td>{{ $p->description }}</td>
-                  <td>{{ $p->price }} kr.</td>
+                  <td><a href="../products/{{ $p->id }}">{{ ucfirst($p->name) }}</a></td>
+                  <td>{{ ucfirst($p->description) }}</td>
+                  <td>{{ number_format($p->price, 2, ',', '.') }} kr.</td>
                   <td>{{ $p->quantity }}</td>
                   <td>
                     {{ Form::open(['route' => 'carts.store']) }}
@@ -45,5 +43,4 @@
 
       </div>
     </div>
-
 @stop

@@ -61,7 +61,11 @@ class ProductsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$manufacturers = $this->manufacturer->getAll();
+
+		$product = $this->product->getProduct($id);
+
+		return View::make('products.show', compact('manufacturers', 'id', 'product'));
 	}
 
 

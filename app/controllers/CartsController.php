@@ -10,11 +10,14 @@ class CartsController extends \BaseController {
 
     protected $cart;
 
-    public function __construct(ManufacturerRepositoryInterface $manufacturer, ProductRepositoryInterface $product, Cart $cart)
+    protected $cartRepo;
+
+    public function __construct(ManufacturerRepositoryInterface $manufacturer, ProductRepositoryInterface $product, Cart $cart, CartRepositoryInterface $cartRepo)
     {
         $this->manufacturer = $manufacturer;
         $this->product = $product;
         $this->cart = $cart;
+        $this->cartRepo = $cartRepo;
     }
 
 	/**

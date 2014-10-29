@@ -26,5 +26,6 @@ class RepositoryServiceProvider extends ServiceProvider {
 
         $this->app->bind('ManufacturerRepositoryInterface', 'ManufacturerRepository');
 
+        $this->app->bind('CartRepositoryInterface', 'CartRepository');
     }
 } 

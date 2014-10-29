@@ -24,18 +24,18 @@
                         <tr>
                           <td>{{ $i->id }}</td>
                           <td>{{ $i->name }}</td>
-                          <td>{{ $i->price }} kr.</td>
+                          <td>{{ number_format($i->price, 2, ',', '.') }} kr.</td>
                           <td>{{ Form::open(['route' => 'carts.update', 'method' => 'put']) }}
                               {{ Form::text('newQty['.$i->id.']', $i->qtySelected, ['size' => 1]) }}
                               </td>
-                          <td>{{ $i->productSum }}</td>
+                          <td>{{ number_format($i->productSum, 2, ',', '.') }} Kr.</td>
                         </tr>
 
                         @endforeach
                         <tr>
                           <td></td><td></td><td></td>
                           <td>I alt</td>
-                          <td>{{ $sum }}</td>
+                          <td>{{ number_format($sum, 2, ',', '.') }} Kr.</td>
                         </tr>
 
                         <tr>
