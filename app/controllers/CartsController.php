@@ -63,9 +63,11 @@ class CartsController extends \BaseController {
 	 */
 	public function store()
 	{
-        $product_id = (integer) Input::get('product_id');       //henter valgte produkt id fra formen
+		$qty = Input::get('qty');
 
-        $this->cart->addSingleItem($product_id);
+        $product_id = (integer) Input::get('id');       //henter valgte produkt id fra formen
+
+        $this->cart->addItemsToSession($product_id, $qty);
 
         return Redirect::action('CartsController@index');       // viser indkøbskurv
 	}

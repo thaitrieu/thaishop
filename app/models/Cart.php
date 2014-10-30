@@ -25,24 +25,43 @@ class Cart {
         $this->items = $items;
     }
 
-    public function addSingleItem($product_id)
-    {
-        if(Session::has('items')){                              //tjekker om der allrede findes det/andre varer gemt i session
-            $items = Session::get('items');
+//    public function addSingleItem($product_id)
+//    {
+//        if(Session::has('items')){                              //tjekker om der allrede findes det/andre varer gemt i session
+//            $items = Session::get('items');
+//
+//            if(array_key_exists($product_id, $items)){          //tjekker om det valgte allerede findes
+//                $items[$product_id] += 1;
+//            } else {
+//                $items[$product_id] = 1;
+//            }
+//
+//            Session::put('items', $items);                      // gemmer opdatering i session
+//
+//        } else {
+//            $items = [$product_id => 1];                        // opretter og gemmer, fordi intet findes i session
+//            Session::put('items', $items);
+//        }
+//    }
 
-            if(array_key_exists($product_id, $items)){          //tjekker om det valgte allerede findes
-                $items[$product_id] += 1;
-            } else {
-                $items[$product_id] = 1;
-            }
+	public function addItemsToSession($productId, $quantity)
+	{
+		if(Session::has('items')){
+			$items = Session::get('items');
 
-            Session::put('items', $items);                      // gemmer opdatering i session
+			if(array_key_exists($productId, $items)){
+				$items[$productId] += $quantity;
+			} else {
+				$items[$productId] = $quantity;
+			}
 
-        } else {
-            $items = [$product_id => 1];                        // opretter og gemmer, fordi intet findes i session
-            Session::put('items', $items);
-        }
-    }
+			Session::put('items', $items);
+		} else {
+			$items = [$productId => $quantity];
+
+			Session::put('items', $items);
+		}
+	}
 
     public function updateCart($newQty)
     {

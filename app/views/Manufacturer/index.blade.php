@@ -1,7 +1,13 @@
 @extends('layouts.default')
 
 @section('content')
+<?php
 
+foreach($manufacturerProducts as $m){
+    $array[] = $m;
+}
+
+?>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">Produkter tilhørende {{ $currentM->name }}</h1>
@@ -13,7 +19,6 @@
                   <th>Beskrivelse</th>
                   <th>Pris</th>
                   <th>På lager</th>
-                  <th>Læg i kurv</th>
                 </tr>
               </thead>
 
@@ -21,16 +26,10 @@
                 @foreach($manufacturerProducts as $p)
 
                 <tr>
-                  <td><a href="../products/{{ $p->id }}">{{ ucfirst($p->name) }}</a></td>
-                  <td>{{ ucfirst($p->description) }}</td>
-                  <td>{{ number_format($p->price, 2, ',', '.') }} kr.</td>
-                  <td>{{ $p->quantity }}</td>
-                  <td>
-                    {{ Form::open(['route' => 'carts.store']) }}
-                        {{ Form::hidden('product_id', $p->id) }}
-                        {{ Form::image('img/basket.png', 'submit', ['style' => 'width: 25px; height: 25px']) }}
-                    {{ Form::close() }}
-                  </td>
+                  <td id="{{ $p->id }}"><a href="../products/{{ $p->id }}">{{ ucfirst($p->name) }}</a></td>
+                  <td id="{{ $p->id }}">{{ ucfirst($p->description) }}</td>
+                  <td id="{{ $p->id }}">{{ number_format($p->price, 2, ',', '.') }} kr.</td>
+                  <td id="{{ $p->id }}">{{ $p->quantity }}</td>
                 </tr>
 
                 @endforeach
@@ -40,7 +39,26 @@
             <div>Antal varer: {{ $manufacturerProducts->getTotal() }}</div>
           </div>
         </div>
-
       </div>
+
+    <script>
+        $(document).ready(function(){
+            var opened = false;
+
+            var jsvar = {{ json_encode($array) }};
+
+            $('tr').click(function(event){
+                var x = event.target.id;
+
+                if(!opened){
+                    $(this).after('<tr class="fooTemp"><td>' + 'Informationer' + '</td><td/><td/><td/></tr>');
+                    opened = true;
+                } else {
+                    $('.fooTemp').remove();
+                    opened = false;
+                }
+            });
+        });
+    </script>
     </div>
 @stop

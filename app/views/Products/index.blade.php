@@ -7,7 +7,6 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>ID</th>
                   <th>Produktnavn</th>
                   <th>Lagerstatus</th>
                   <th>Pris</th>
@@ -17,10 +16,9 @@
               <tbody>
                 @foreach($data as $d)
                 <tr>
-                  <td>{{ $d->id }}</td>
-                  <td>{{ $d->name }}</td>
+                  <td>{{ ucfirst($d->name) }}</td>
                   <td>{{ $d->quantity }}</td>
-                  <td>{{ $d->price }}</td>
+                  <td>Kr. {{ number_format($d->price, 2, ',', '.') }}</td>
                 </tr>
                 @endforeach
               </tbody>
