@@ -60,3 +60,27 @@ Route::get('api', function(){
 
     var_dump($response);
 });
+
+Route::get('morph', function() {
+	$comment = Comment::find(1);
+
+	$movie = Movie::find(2);
+
+	$movieComments = $movie->load('comments');
+
+//	$arr = array_pluck($movieComments, 'body');
+
+//	$commentable = $comment->commentable->toArray();
+//	$movieTitle = $commentable['title'];
+//	dd($commentable);
+
+//	$commentable = $comment->load('commentable');
+
+//	echo $commentable->commentable->title;
+
+//	echo $movieComments->comments;
+
+	foreach($movie->comments as $comment) {
+		echo $comment->body . '<br/>';
+	}
+});
