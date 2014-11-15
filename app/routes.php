@@ -1,6 +1,8 @@
 <?php
 use Guzzle\Http\Client;
 
+//Thai tester git
+
 Route::get('/', function()
 {
     return Redirect::route('products.index');
